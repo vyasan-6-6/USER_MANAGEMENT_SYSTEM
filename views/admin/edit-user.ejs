@@ -1,0 +1,21 @@
+ <% include("../layouts/header.ejs") %>
+
+<h1> Edit User</h1>
+ 
+
+<form action="" method="post">
+    <input type="hidden" name="id"   value="<%=users._id %>"  required><br><br>
+    <input type="text" name="name" placeholder="Enter Name" value="<%=users.name %>"  required><br><br>
+    <input type="email" name="email" placeholder="Enter Email" value="<%=users.email %>" required><br><br>
+    <input type="text" name="mno" placeholder="Enter Mobile"  value="<%=users.mobile %>"  required><br><br>
+    <label >Verified</label>
+    <input type="radio" name="verify" value="1" <% if(users.is_verified ==1){%>checked<%} %> required>
+    <label >UnVerified</label>
+    <input type="radio" name="verify" value="0"  <% if(users.is_verified == 0){%>checked<%} %> required>
+    <br><br>
+    <input type="submit" value="Update User" >
+</form>
+ 
+
+<a href="/admin/dashboard">Go Dashboard</a>
+<% include("../layouts/footer.ejs") %>

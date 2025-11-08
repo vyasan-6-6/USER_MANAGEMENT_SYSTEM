@@ -1,0 +1,144 @@
+<% include("../layouts/header.ejs") %>
+
+<h3>Welcome, <%= user.name %></h3>
+
+<table width="50%">
+  <tr>
+    <td>
+      <!-- ✅ Add a slash between folder and image filename -->
+      <img src="/userImages/<%= user.image %>" alt="<%= user.image %>" width="150" height="150">
+    </td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td><%= user.email %></td>
+  </tr>
+  <tr>
+    <td>Mobile</td>
+    <td><%= user.mobile %></td>  <!-- ✅ Added missing <td> -->
+  </tr>
+  <tr>
+    <td>Verified</td>
+    <td>
+      <% if (user.is_verified === 1) { %>
+        Yes
+      <% } else { %>
+        No
+      <% } %>
+    </td>
+  </tr>
+</table>
+
+
+<br><br>
+<!-- <a href="/edit?id=<%= user._id %>">Edit</a> -->
+<a href="/edit?id=<%= user._id %>">Edit</a>
+<br>
+<a href="/logout">Logout</a>
+
+<% include("../layouts/footer.ejs") %>
+
+
+<!-- <% include("../layouts/header.ejs") %>
+
+<style>
+  .profile-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fdfdfd;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .profile-container h3 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .profile-photo {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 80%;
+    margin: 0 auto 20px auto;
+    border-collapse: collapse;
+  }
+
+  td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+    text-align: left;
+  }
+
+  td:first-child {
+    font-weight: bold;
+    width: 40%;
+  }
+
+  .buttons a {
+    display: inline-block;
+    margin: 10px 8px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    transition: background 0.3s ease;
+  }
+
+  .buttons a:hover {
+    background-color: #0056b3;
+  }
+
+  .logout-btn {
+    background-color: #dc3545;
+  }
+
+  .logout-btn:hover {
+    background-color: #b02a37;
+  }
+</style>
+
+<div class="profile-container">
+  <h3>Welcome, <%= user.name %> 👋</h3>
+
+  <img src="/userImages/<%= user.image %>" alt="<%= user.name %>" class="profile-photo">
+
+  <table>
+    <tr>
+      <td>Email</td>
+      <td><%= user.email %></td>
+    </tr>
+    <tr>
+      <td>Mobile</td>
+      <td><%= user.mobile %></td>
+    </tr>
+    <tr>
+      <td>Verified</td>
+      <td>
+        <% if (user.is_verified === 1) { %>
+          ✅ Yes
+        <% } else { %>
+          ❌ No
+        <% } %>
+      </td>
+    </tr>
+  </table>
+
+  <div class="buttons">
+    <a href="/edit?id=<%= user._id %>">Edit Profile</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+  </div>
+</div>
+
+<% include("../layouts/footer.ejs") %>
+ -->

@@ -1,0 +1,36 @@
+<% include("../layouts/header.ejs") %>
+
+
+
+<% 
+if(typeof errorMessage !== "undefined" && errorMessage){
+    %>
+    <p style="color: rgb(128, 0, 2);"><%=errorMessage%></p>
+    <%
+}
+%>
+<br><br>
+<h1>User Registration Form</h1>
+<form action="" method="post" enctype="multipart/form-data">
+ <input type="text" name="name" placeholder="Enter Name"  required><br><br>
+ <input type="email" name="email" placeholder="Enter Email" required><br><br>
+ <input type="password" name="password" placeholder="Enter Password" required><br><br>
+ <input type="text" name="mno" placeholder="Enter Mobile Number" required><br><br>
+ <input type="file" name="image" required><br><br>
+ <input type="submit" name="Register"   ><br><br>
+  </form>
+
+<% 
+if(typeof successMessage !== "undefined"){
+    %>
+    <p style="color: green;"><%=successMessage%></p>
+    <%
+}
+%>
+
+
+
+
+
+
+<% include("../layouts/footer.ejs") %>

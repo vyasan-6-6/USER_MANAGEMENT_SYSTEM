@@ -1,0 +1,52 @@
+<% include("../layouts/header.ejs") %>
+
+<h1>Dashboard</h1>
+<br>
+<br>
+<% if (typeof message !== "undefined" && message) { %>
+  <p style="color: green;"><%= message %></p>
+<% } %>
+
+<br>
+<a href="/admin/new-user">Add New User</a>
+<br>
+<br>
+
+<table style="width: 80%; border-collapse: collapse" border="1" cellpadding="10">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Image</th>
+        <th>Verified</th>
+        <th>Admins</th>
+        <th>Action</th>
+    </tr>
+
+    <% if (users.length > 0) { %> <% for(let i = 0 ; i < users.length ; i++){ %>
+    <tr>
+        <td><%= users[i].name%></td>
+        <td><%= users[i].email%></td>
+        <td><%= users[i].mobile%></td>
+        <td>
+            <img src="/userImages/<%= users[i].image%>" alt="<%= users[i].image%>" style="width: 100px; height: 100px" /><%=
+            users[i].image%>
+        </td>
+        <td><%if(users[i].is_verified === 1){%> Verified <% } else{%> Not Verified <% } %></td>
+        <td><% if (users[i].is_Admin === 1){%> Yes<%}else{%> No<%} %></td>
+        <td>
+            <a style="text-decoration: none;" href="/admin/edit-user?id=<%=users[i]._id %>">Edit</a> __
+            <a style=" text-decoration: none;  color: red;" href="/admin/delete-user?id=<%=users[i]._id %>">Delete</a> 
+        </td>
+    </tr>
+    <% } %> <% } else { %>
+    <tr>
+        <td colspan="5" style="text-align: center">Users Not Found</td>
+    </tr>
+    <% } %>
+</table>
+
+<br />
+<a href="/admin/home">Go to Home</a>
+
+<% include("../layouts/footer.ejs") %>
