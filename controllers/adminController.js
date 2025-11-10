@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const randomString = require("randomstring");
+const config = require("../config/multer");
 const { generateAdminToken } = require("../helper/admin_jwt");
 
 const securePassword = async (password) => {
@@ -90,16 +91,16 @@ const addUserMail = async (name, email, password, user_id) => {
 const loadLogin = async (req, res) => {
     try {
         const adminId = req.userId;
-        const admindata = await User.findById(adminId);
+        const adminData = await User.findById(adminId);
 
-        if (!admindata) {
+        if (!adminData) {
             return res.render("admin/login"); // ✅ stop here
         }
 
         res.render("admin/login");
     } catch (error) {
         console.log(error.message);
-    }
+    };
 };
 
 const loginVerify = async (req, res) => {
@@ -140,9 +141,9 @@ const loginVerify = async (req, res) => {
 const loadDashBoard = async (req, res) => {
     try {
         const admin_id = req.userId;
-        const admindata = await User.findById(admin_id);
+        const adminData = await User.findById(admin_id);
 
-        res.render("admin/home", { admin: admindata });
+        res.render("admin/home", { adminData });
     } catch (error) {
         console.log("err from load dash board :", error.message);
     }
@@ -157,6 +158,18 @@ const logout = async (req, res) => {
         console.log("logout Error:", error.message);
     }
 };
+
+// while using session
+// const logout = async (req, res) => {
+//     try {
+//         req.session.destroy();
+//         res.redirect("/admin");
+//     } catch (error) {
+//         console.log("logout Error:", error.message);
+//     }
+// };
+
+
 
 const forgetLoad = async (req, res) => {
     try {

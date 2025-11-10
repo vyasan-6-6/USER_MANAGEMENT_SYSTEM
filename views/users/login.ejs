@@ -2,20 +2,20 @@
 
 <h1>Login</h1>
 
-<% 
-if(typeof message !== "undefined"){
-    %>
-    <h4><%= message%></h4>
-    <%
-}
-%>
+<% if(typeof message !== "undefined"){ %>
+<h4><%= message%></h4>
+<% } %>
 
 <form action="/login" method="post">
-    <input type="email" name="email" placeholder="Enter Email" required><br><br>
-    <input type="password" name="password" placeholder="Enter Password" required><br><br>
-    <input type="submit" value="Login" >
+    <input type="email" name="email" placeholder="Enter Email" required /><br /><br />
+    <input type="password" name="password" placeholder="Enter Password" required /><br><input
+        type="checkbox"
+        onclick="password.type = password.type === 'password' ? 'text' : 'password'"
+    />
+    Show Password<br />
+    <input type="submit" value="Login" />
 </form>
 
-<a href="/forget">Forget Password</a><br><br>
+<a href="/forget">Forget Password</a><br /><br />
 <a href="/verification">Verification</a>
 <% include("../layouts/footer.ejs") %>

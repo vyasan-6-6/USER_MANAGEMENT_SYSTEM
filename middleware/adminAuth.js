@@ -15,7 +15,7 @@ exports.isLogin = (req, res, next) => {
         console.log("JWT verify failed:", err.message);
         res.clearCookie("admin_jwt");
         return res.redirect("/admin");
-    }
+    };
 };
 
 exports.isLogout = (req, res, next) => {
@@ -23,7 +23,7 @@ exports.isLogout = (req, res, next) => {
         const token = req.cookies.admin_jwt;
         if (token) {
             // Already logged in → redirect to dashboard
-            return res.redirect("/admin/home");
+            return res.redirect("admin/home");
         }
         next();
     } catch (err) {

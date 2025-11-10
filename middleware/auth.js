@@ -1,22 +1,47 @@
-const jwt = require("jsonwebtoken");
-const config = require("../config/dbConfig");
+
 const { verifyToken } = require("../helper/jwt");
 
-const auth = (req, res, next) => {
+const isLogin = (req, res, next) => {
     const token = req.cookies.jwt;
-    console.log("Token in cookie:", req.cookies.jwt);
-    console.log("Cookies:", req.cookies);
-
     if (!token) {
-        return res.redirect("/users/home");
+        return res.redirect("/login");
     }
     try {
         const decoded = verifyToken(token);
         req.user = decoded;
         next();
     } catch (error) {
-        console.log("er from auth :", error.message);
-        return res.redirect("/users/login");
+        console.log("er from islogin:",error.message);
+        
+        return res.redirect("/login");
     }
 };
-module.exports = auth;
+
+
+const isLogout = (req, res, next) => {
+    const token = req.cookies.jwt;
+console.log("isLogout: token =", token);
+    if (token) {
+        try {
+            verifyToken(token);
+            // ✅ User already logged in → redirect to home
+            return res.redirect("/home");
+        } catch (error) {
+      // ✅ Token invalid → remove it
+            res.clearCookie('jwt');
+            next();
+        }
+    } else {    console.log("isLogout: no token → continue to page");
+
+        next();
+    }
+};
+
+
+
+
+
+module.exports = {
+    isLogin,
+    isLogout
+};

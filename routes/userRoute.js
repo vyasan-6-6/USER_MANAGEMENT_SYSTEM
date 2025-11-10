@@ -6,22 +6,22 @@ const upload = require("../config/multer");
 const userController = require("../controllers/userController");
 
 // Register routes
-router.get("/register", userController.loadRegister);
+router.get("/register",auth.isLogout,userController.loadRegister);
 router.post("/register", upload.single("image"), userController.insertUser);
 
 // Email verification
 router.get("/verify", userController.verifyMail);
 
 // Login routes
-router.get("/login", userController.loginLoad);
-router.get("/", userController.loginLoad);
+router.get("/login", auth.isLogout,userController.loginLoad);
+router.get("/",auth.isLogout,userController.loginLoad);
 router.post("/login", userController.verifyLogin);
 
 // Logout route (protected)
-router.get("/logout", auth, userController.userLogout);
+router.get("/logout", auth.isLogin, userController.userLogout);
 
 // Home (protected)
-router.get("/home", auth, userController.loadHome);
+router.get("/home", auth.isLogin, userController.loadHome);
 
 // Forgot password routes
 router.get("/forget", userController.forgetLoad);
@@ -34,7 +34,7 @@ router.get("/verification", userController.verificationLoad);
 router.post("/verification", userController.sendVerificationLink);
 
 // Edit profile (protected)
-router.get("/edit", auth, userController.editLoad);
+router.get("/edit", auth.isLogin, userController.editLoad);
 router.post("/edit", upload.single("image"), userController.updateProfile);
 
 module.exports = router;

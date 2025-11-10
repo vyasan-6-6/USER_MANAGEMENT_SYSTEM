@@ -4,13 +4,16 @@ const nodemailer = require("nodemailer");
 const randomsString = require("randomstring");
 const { createToken } = require("../helper/jwt");
 
-const securePassword = (password) => {
-    return new Promise((resolve, reject) => {
-        bcrypt.hash(password, 10).then((response) => {
-            resolve(response);
-        });
-    });
-};
+ 
+const securePassword = async(password)=>{
+    try {
+       const passwordHash =  await bcrypt.hash(password,10);
+       return passwordHash;
+    } catch (error) {
+        console.log("er from pass hash :",error.message);
+        
+    }
+}
 
 //for send mail .
 
@@ -155,7 +158,7 @@ const loginLoad = async (req, res) => {
     try {
         res.render("users/login");
     } catch (error) {
-        console.log(error.message);
+        console.log( "er from login load :  ",error.message);
     }
 };
 
@@ -163,7 +166,7 @@ const loginLoad = async (req, res) => {
 const verifyLogin = async (req, res) => {
     try {
         // Log request body to check if data is coming from the form correctly
-        console.log(req.body);
+        // console.log(req.body);
 
         // Extract email and password from the login form
         const email = req.body.email;
@@ -185,6 +188,9 @@ const verifyLogin = async (req, res) => {
                     // If not verified, show a message asking them to verify
                     res.render("users/login", { message: "Please verify your email." });
                 } else {
+                    //    req.session.user_id = userData._id;
+                       
+
                     const token = createToken(userData);
                     res.cookie("jwt", token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
                     // Redirect to home page after successful login
@@ -206,6 +212,8 @@ const verifyLogin = async (req, res) => {
 
 const loadHome = async (req, res) => {
     try {
+    
+
         // ✅ The user info is stored in the decoded JWT (from auth middleware)
         const userId = req.user.userId; // comes from createToken payload
 
@@ -222,14 +230,53 @@ const loadHome = async (req, res) => {
     }
 };
 
+
+// const userLogout = async (req, res) => {
+//   try {
+//     // ✅ Remove JWT cookie
+//     res.clearCookie("jwt");
+
+//     // ✅ Redirect directly to login page
+//     return res.redirect("/users/login");
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).send("Something went wrong");
+//   }
+// };
+
 const userLogout = async (req, res) => {
-    try {
-        res.clearCookie("jwtToken");
-        res.redirect("users/login");
-    } catch (error) {
-        console.log("er from logout:", error.message);
-    }
+  try {
+    console.log("🟢 Logout route called");
+
+    // ✅ Clear the JWT cookie
+    res.clearCookie("jwt");
+
+    console.log("🟢 JWT cookie cleared");
+
+    // ✅ Redirect to login
+    return res.redirect("/login");
+  } catch (error) {
+    console.log("❌ Logout error:", error.message);
+    res.status(500).send("Something went wrong during logout");
+  }
 };
+
+
+
+
+
+//while using session 
+
+// const logout = async (req, res) => {
+//     try {
+//         req.session.destroy();
+//         res.redirect("users/login");
+//     } catch (error) {
+//         console.log("logout Error:", error.message);
+//     }
+// };
+
+
 
 // forget password code start
 
@@ -291,7 +338,7 @@ const resetPassword = async (req, res) => {
         const password = req.body.password;
         const user_id = req.body.user_id;
         const secure_password = await securePassword(password);
-        const updatedData = await User.findByIdAndUpdate(
+     await User.findByIdAndUpdate(
             { _id: user_id },
             { $set: { password: secure_password, token: "" } }
         );

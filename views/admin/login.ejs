@@ -12,7 +12,8 @@ if(typeof message !== "undefined"){
 
 <form action="" method="post">
     <input type="email" name="email" placeholder="Enter Email" required><br><br>
-    <input type="password" name="password" placeholder="Enter Password" required><br><br>
+    <input type="password" name="password" placeholder="Enter Password" required><br><input type="checkbox" onclick="password.type = password.type === 'password' ? 'text' : 'password'">
+Show Password<br>
     <input type="submit" value="Login" >
 </form>
  
