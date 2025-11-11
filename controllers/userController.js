@@ -158,7 +158,9 @@ const loginLoad = async (req, res) => {
     try {
         res.render("users/login");
     } catch (error) {
+        
         console.log( "er from login load :  ",error.message);
+
     }
 };
 
@@ -202,7 +204,7 @@ const verifyLogin = async (req, res) => {
             }
         } else {
             // ❌ If email doesn’t exist in database
-            res.redirect("users/login", { message: "Your email and password are incorrect." });
+            res.render("users/login", { message: "Your email and password are incorrect." });
         }
     } catch (error) {
         // Handle any unexpected errors
@@ -230,20 +232,6 @@ const loadHome = async (req, res) => {
         res.redirect("/login");
     }
 };
-
-
-// const userLogout = async (req, res) => {
-//   try {
-//     // ✅ Remove JWT cookie
-//     res.clearCookie("jwt");
-
-//     // ✅ Redirect directly to login page
-//     return res.redirect("/users/login");
-//   } catch (error) {
-//     console.log(error.message);
-//     res.status(500).send("Something went wrong");
-//   }
-// };
 
 const userLogout = async (req, res) => {
   try {
