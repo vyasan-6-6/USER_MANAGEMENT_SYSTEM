@@ -188,7 +188,7 @@ const verifyLogin = async (req, res) => {
                 // Check if user has verified their email
                 if (userData.is_verified === 0) {
                     // If not verified, show a message asking them to verify
-                    res.redirect("users/login", { message: "Please verify your email." });
+                    res.render("users/login", { message: "Please verify your email." });
                 } else {
                     //    req.session.user_id = userData._id;
                        

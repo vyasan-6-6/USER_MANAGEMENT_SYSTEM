@@ -222,7 +222,7 @@ const resetPassword = async (req, res) => {
 
         const secure_password = await securePassword(password);
         await User.findByIdAndUpdate({ _id: user_id }, { password: secure_password, token: "" });
-        res.redirect("admin/");
+        res.redirect("/admin");
     } catch (error) {
         console.log("er from reset password:", error.message);
     }
