@@ -3,6 +3,7 @@ const { verifyToken } = require("../helper/jwt");
 
 const isLogin = (req, res, next) => {
     const token = req.cookies.jwt;
+
     if (!token) {
         return res.redirect("/login");
     }
@@ -16,6 +17,7 @@ const isLogin = (req, res, next) => {
         return res.redirect("/login");
     }
 };
+
 
 
 const isLogout = (req, res, next) => {

@@ -186,7 +186,7 @@ const verifyLogin = async (req, res) => {
                 // Check if user has verified their email
                 if (userData.is_verified === 0) {
                     // If not verified, show a message asking them to verify
-                    res.render("users/login", { message: "Please verify your email." });
+                    res.redirect("users/login", { message: "Please verify your email." });
                 } else {
                     //    req.session.user_id = userData._id;
                        
@@ -202,7 +202,7 @@ const verifyLogin = async (req, res) => {
             }
         } else {
             // ❌ If email doesn’t exist in database
-            res.render("users/login", { message: "Your email and password are incorrect." });
+            res.redirect("users/login", { message: "Your email and password are incorrect." });
         }
     } catch (error) {
         // Handle any unexpected errors
@@ -212,6 +212,7 @@ const verifyLogin = async (req, res) => {
 
 const loadHome = async (req, res) => {
     try {
+    console.log("home is loaded.");
     
 
         // ✅ The user info is stored in the decoded JWT (from auth middleware)
@@ -220,13 +221,13 @@ const loadHome = async (req, res) => {
         const userData = await User.findById(userId);
 
         if (!userData) {
-            return res.redirect("/users/login");
+            return res.redirect("/login");
         }
 
         res.render("users/home", { user: userData });
     } catch (error) {
         console.log("Error loading home:", error.message);
-        res.redirect("/users/login");
+        res.redirect("/login");
     }
 };
 
