@@ -117,7 +117,7 @@ const loginVerify = async (req, res) => {
             return res.render("admin/login", { message: "Invalid email or password." });
         }
 
-        if (userData.is_admin === 0) {
+        if (userData.is_Admin === 0) {
             return res.render("admin/login", { message: "Access denied." });
         }
 
