@@ -78,7 +78,8 @@ npm start
 | GET    | /api/users              | Get all users             |
 | GET    | /user?id                | Get a single user         |
 | PUT    | /edit-user?id           | Update user details       |
-| DELETE | /user/delete-users?id   |   Delete a user           |
+| PUT    | /user-new?id            | Add new user              |
+| DELETE | /user/delete-users?id   | Delete a user             |
 | POST   | /verify-email           | Verify user email         |
 | POST   | /reset-password         | Request password reset    |
 | POST   | /reset-password?token   | Reset password with token |
