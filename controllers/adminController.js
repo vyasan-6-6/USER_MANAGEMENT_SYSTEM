@@ -99,6 +99,7 @@ const loadLogin = async (req, res) => {
 
         res.render("admin/login");
     } catch (error) {
+        // res.status(500).send({message:""})
         console.log(error.message);
     };
 };

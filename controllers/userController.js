@@ -4,16 +4,14 @@ const nodemailer = require("nodemailer");
 const randomsString = require("randomstring");
 const { createToken } = require("../helper/jwt");
 
- 
-const securePassword = async(password)=>{
+const securePassword = async (password) => {
     try {
-       const passwordHash =  await bcrypt.hash(password,10);
-       return passwordHash;
+        const passwordHash = await bcrypt.hash(password, 10);
+        return passwordHash;
     } catch (error) {
-        console.log("er from pass hash :",error.message);
-        
+        console.log("er from pass hash :", error.message);
     }
-}
+};
 
 //for send mail .
 
@@ -53,7 +51,7 @@ const sendVerifyMail = async (name, email, user_id) => {
     }
 };
 
-//for reset password send mail
+    //for reset password send mail
 
 const sendResetPasswordMail = async (name, email, token) => {
     try {
@@ -70,7 +68,7 @@ const sendResetPasswordMail = async (name, email, token) => {
                 rejectUnauthorized: false, // helps avoid self-signed cert errors in dev
             },
         });
-
+        
         // ✅ Email options
         const mailOptions = {
             from: process.env.HOST,
@@ -135,8 +133,7 @@ const insertUser = async (req, res) => {
 
 const verifyMail = async (req, res) => {
     try {
-        console.log("mm", req.query.id);
-
+    
         const updateInfo = await User.updateOne({ _id: req.query.id }, { $set: { is_verified: 1 } });
 
         console.log(updateInfo);
@@ -158,9 +155,7 @@ const loginLoad = async (req, res) => {
     try {
         res.render("users/login");
     } catch (error) {
-        
-        console.log( "er from login load :  ",error.message);
-
+        console.log("er from login load :  ", error.message);
     }
 };
 
@@ -191,7 +186,6 @@ const verifyLogin = async (req, res) => {
                     res.render("users/login", { message: "Please verify your email." });
                 } else {
                     //    req.session.user_id = userData._id;
-                       
 
                     const token = createToken(userData);
                     res.cookie("jwt", token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
@@ -214,8 +208,7 @@ const verifyLogin = async (req, res) => {
 
 const loadHome = async (req, res) => {
     try {
-    console.log("home is loaded.");
-    
+        console.log("home is loaded.");
 
         // ✅ The user info is stored in the decoded JWT (from auth middleware)
         const userId = req.user.userId; // comes from createToken payload
@@ -234,20 +227,20 @@ const loadHome = async (req, res) => {
 };
 
 const userLogout = async (req, res) => {
-  try {
-    console.log("🟢 Logout route called");
+    try {
+        console.log("🟢 Logout route called");
 
-    // ✅ Clear the JWT cookie
-    res.clearCookie("jwt");
+        // ✅ Clear the JWT cookie
+        res.clearCookie("jwt");
 
-    console.log("🟢 JWT cookie cleared");
+        console.log("🟢 JWT cookie cleared");
 
-    // ✅ Redirect to login
-    return res.redirect("/login");
-  } catch (error) {
-    console.log("❌ Logout error:", error.message);
-    res.status(500).send("Something went wrong during logout");
-  }
+        // ✅ Redirect to login
+        return res.redirect("/login");
+    } catch (error) {
+        console.log("❌ Logout error:", error.message);
+        res.status(500).send("Something went wrong during logout");
+    }
 };
 
 // forget password code start
@@ -310,10 +303,7 @@ const resetPassword = async (req, res) => {
         const password = req.body.password;
         const user_id = req.body.user_id;
         const secure_password = await securePassword(password);
-     await User.findByIdAndUpdate(
-            { _id: user_id },
-            { $set: { password: secure_password, token: "" } }
-        );
+        await User.findByIdAndUpdate({ _id: user_id }, { $set: { password: secure_password, token: "" } });
 
         res.redirect("/");
     } catch (error) {
@@ -345,7 +335,6 @@ const sendVerificationLink = async (req, res) => {
         console.log("er from verificationLink :", error.message);
     }
 };
-
 
 const editLoad = async (req, res) => {
     try {

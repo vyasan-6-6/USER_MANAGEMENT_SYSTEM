@@ -23,7 +23,6 @@ const isLogin = (req, res, next) => {
 
 const isLogout = (req, res, next) => {
     const token = req.cookies.jwt;
-console.log("isLogout: token =", token);
     if (token) {
         try {
             verifyToken(token);
@@ -34,7 +33,7 @@ console.log("isLogout: token =", token);
             res.clearCookie('jwt');
             next();
         }
-    } else {    console.log("isLogout: no token → continue to page");
+    } else {   
 
         next();
     }
