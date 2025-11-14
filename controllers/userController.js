@@ -250,23 +250,6 @@ const userLogout = async (req, res) => {
   }
 };
 
-
-
-
-
-//while using session 
-
-// const logout = async (req, res) => {
-//     try {
-//         req.session.destroy();
-//         res.redirect("users/login");
-//     } catch (error) {
-//         console.log("logout Error:", error.message);
-//     }
-// };
-
-
-
 // forget password code start
 
 const forgetLoad = async (req, res) => {
@@ -362,6 +345,7 @@ const sendVerificationLink = async (req, res) => {
         console.log("er from verificationLink :", error.message);
     }
 };
+
 
 const editLoad = async (req, res) => {
     try {
