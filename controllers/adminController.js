@@ -159,16 +159,6 @@ const logout = async (req, res) => {
     }
 };
 
-// while using session
-// const logout = async (req, res) => {
-//     try {
-//         req.session.destroy();
-//         res.redirect("/admin");
-//     } catch (error) {
-//         console.log("logout Error:", error.message);
-//     }
-// };
-
 
 
 const forgetLoad = async (req, res) => {

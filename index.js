@@ -7,18 +7,6 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
-// const session = require("express-session");
-// const sessionSet = {
-//    secret:"hi",
-//    resave:false,
-//    saveUninitialized: false,
-//    cookies:{
-//     httpOnly:true,
-//     maxAge: 1000*60*60*24
-//    }
-// };
-// app.use(session(sessionSet));
-
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
